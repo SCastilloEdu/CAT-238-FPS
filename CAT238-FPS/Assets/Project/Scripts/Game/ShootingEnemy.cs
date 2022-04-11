@@ -58,6 +58,8 @@ public class ShootingEnemy : Enemy
         base.OnKill();
         agent.enabled = false;
         this.enabled = false;
+        this.GetComponent<Rigidbody>().drag = 0;
+        this.GetComponent<Rigidbody>().angularDrag = 0;
         transform.localEulerAngles = new Vector3(10, transform.localEulerAngles.y, transform.localEulerAngles.z);
     }
 }

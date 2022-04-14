@@ -9,6 +9,7 @@ public class ShootingEnemy : Enemy
     public float shootingDistance = 6f;
     public float chasingInterval = 2f;
     public float chasingDistance = 12f;
+	public int weaponType = 1;
 
     private Player player;
     private float shootingTimer;
@@ -41,6 +42,17 @@ public class ShootingEnemy : Enemy
             GameObject bullet = ObjectPoolingManager.Instance.GetBullet(false);
             bullet.transform.position = transform.position;
             bullet.transform.forward = (player.transform.position - transform.position).normalized;
+			if (weaponType == 2)
+			{
+				GameObject bulletObjectL = ObjectPoolingManager.Instance.GetBullet(false);
+				bulletObjectL.transform.position = transform.position;
+				bulletObjectL.transform.forward = (player.transform.position - transform.position).normalized;
+				bulletObjectL.transform.Rotate(0.0f, -10.0f, 0.0f, Space.Self);
+				GameObject bulletObjectR = ObjectPoolingManager.Instance.GetBullet(false);
+				bulletObjectR.transform.position = transform.position;
+				bulletObjectR.transform.forward = (player.transform.position - transform.position).normalized;
+				bulletObjectR.transform.Rotate(0.0f, 10.0f, 0.0f, Space.Self);
+			}
 
         }
 
@@ -61,5 +73,9 @@ public class ShootingEnemy : Enemy
         this.GetComponent<Rigidbody>().drag = 0;
         this.GetComponent<Rigidbody>().angularDrag = 0;
         transform.localEulerAngles = new Vector3(10, transform.localEulerAngles.y, transform.localEulerAngles.z);
+		if (weaponType == 2)
+		{
+			player.weaponType = 2;
+		}
     }
 }

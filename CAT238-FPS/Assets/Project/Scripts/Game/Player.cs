@@ -18,6 +18,9 @@ public class Player : MonoBehaviour
     public float knockbackForce = 100f;
     private bool isHurt;
     public float hurtDuration = 0.5f;
+	
+	public int weaponType = 1;
+	public float weaponTwoSpread = 10.0f;
 
     private bool killed;
     public bool Killed { get { return killed; } }
@@ -42,6 +45,19 @@ public class Player : MonoBehaviour
                 GameObject bulletObject = ObjectPoolingManager.Instance.GetBullet(true);
                 bulletObject.transform.position = playerCamera.transform.position + transform.forward;
                 bulletObject.transform.forward = playerCamera.transform.forward;
+				// Checking if weaponType == 2 and making the shot tripleshot
+				if (weaponType == 2)
+				{
+					GameObject bulletObjectL = ObjectPoolingManager.Instance.GetBullet(true);
+					bulletObjectL.transform.position = playerCamera.transform.position + transform.forward;
+					bulletObjectL.transform.forward = playerCamera.transform.forward;
+					bulletObjectL.transform.Rotate(0.0f, -weaponTwoSpread, 0.0f, Space.Self);
+					GameObject bulletObjectR = ObjectPoolingManager.Instance.GetBullet(true);
+					bulletObjectR.transform.position = playerCamera.transform.position + transform.forward;
+					bulletObjectR.transform.forward = playerCamera.transform.forward;
+					bulletObjectR.transform.Rotate(0.0f, weaponTwoSpread, 0.0f, Space.Self);
+					print("SHOTGUN!");
+				}
             }
 
         }
